@@ -1,0 +1,5 @@
+[
+  {"id":1,"role": "receptionest"},
+  {"id":2,"role": "patient"},
+  {"id":3,"role": "doctore"}
+]

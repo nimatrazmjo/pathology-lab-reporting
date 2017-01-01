@@ -12,5 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('master');
+});
+
+
+Route::group(['prefix'=>''], function(){
+    Route::resource('user','UserController');
 });

@@ -23,4 +23,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Has relationship with user_reports table
+     */
+    public function UserReport()
+    {
+        $this->hasMany('App\Models\UserReport');
+    }
+
+    public function roles()
+    {
+        $this->belongsToMany('App\Models\Role','user_role','user_id','role_id');
+    }
+
+
 }
