@@ -1,11 +1,30 @@
-*{
-    padding: 0;
-    margin: 0;
-}
 .aside {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 .section {
     border: 1px solid #ccc;
+}
+
+.title {
+    font-size: 23px;
+    position: relative;
+    font-weight: bold;
+}
+
+.pull_right {
+    margin-top: -28px;
+    margin-bottom: 10px;
+}
+.section {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+.section-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.btn {
+    margin-left: 2px;
+    margin-right: 2px;
 }

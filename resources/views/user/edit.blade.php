@@ -7,8 +7,8 @@
                 <input type="hidden" name="_method" value="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
-                    <label for="full_name" class="control-label">Full Name</label>
-                    <input type="text" class="form-control" value="{{$user->full_name}}" id="full_name" name="full_name">
+                    <label for="name" class="control-label">Full Name</label>
+                    <input type="text" class="form-control" value="{{$user->name}}" id="name" name="name">
                 </div>
                 <div class="form-group">
                     <label for="user_name" class="control-label">User Name</label>

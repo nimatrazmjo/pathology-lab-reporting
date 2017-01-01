@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\UserReport;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class UserController extends Controller
     {
         $input = $request;
         $rules = [
-            'full_name' => 'required',
+            'name' => 'required',
             'user_name' => 'required',
             'email'     => 'required',
             'pass_code' => 'required',
@@ -53,7 +54,7 @@ class UserController extends Controller
 
         $this->validate($request, $rules);
         $userObject = new User();
-        $userObject->full_name = $input['full_name'];
+        $userObject->name = $input['name'];
         $userObject->user_name = $input['user_name'];
         $userObject->email = $input['email'];
         $userObject->pass_code = $input['email'];
@@ -78,7 +79,10 @@ class UserController extends Controller
         }catch (ModelNotFoundException $e) {
             return response('Not Found', 404);
         }
-        return view("user.show")->with("user",$user);
+        $userReports = UserReport::where('user_id',$id)->get();
+        return view("user.show")
+                ->with("user",$user)
+                ->with("user_reports", $userReports);
     }
 
     /**
@@ -112,7 +116,7 @@ class UserController extends Controller
             return response(view('error.404'),404);
         }
 
-        $user->full_name = $request->get('full_name');
+        $user->name = $request->get('name');
         $user->user_name = $request->get('user_name');
         $user->email = $request->get('email');
         $user->pass_code = $request->get('email');

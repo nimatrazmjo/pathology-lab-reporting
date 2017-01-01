@@ -26,7 +26,8 @@
             </section>
         </div>
         <script src="{{asset('jquery/dist/jquery.min.js')}}"></script>
+        <script src="{{asset('bootstrap/dist/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('javascript/scripts.js')}}" type="text/javascript"></script>
-        @yield('custom_scripts')
+        @yield('custom_script')
     </body>
 </html>

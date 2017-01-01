@@ -11,11 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('master');
-});
+Route::get('/','UserController@index');
 
 
-Route::group(['prefix'=>''], function(){
+Route::group(['middleware'=>['auth']], function(){
     Route::resource('user','UserController');
 });
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
