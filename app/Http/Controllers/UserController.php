@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\UserReport;
+use App\Models\Role;
+use App\Models\Test;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
+use App\Models\UserReport;
 use App\Http\Requests;
 use App\User;
 
@@ -30,7 +31,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view("user.add");
+        $roles = Role::lists('role','id');
+
+        return view("user.add")->with('role',$roles);
     }
 
     /**
@@ -41,12 +44,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request;
+        $input = $request->all();
+
         $rules = [
             'name' => 'required',
             'user_name' => 'required',
-            'email'     => 'required',
-            'pass_code' => 'required',
+            'email'     => 'required|email|unique:users',
+            'password'     => 'required',
             'age'       => 'required',
             'sex'       => 'required',
             'address'   => 'required'
@@ -57,12 +61,12 @@ class UserController extends Controller
         $userObject->name = $input['name'];
         $userObject->user_name = $input['user_name'];
         $userObject->email = $input['email'];
-        $userObject->pass_code = $input['email'];
+        $userObject->password = bcrypt($input['password']);
         $userObject->age = $input['age'];
-        $userObject->sex = $input['sex'];
+        $userObject->status = $input['sex'];
         $userObject->address = $input['address'];
         $userObject->save();
-        return redirect()->back();
+        return redirect('/user');
     }
 
     /**
@@ -80,9 +84,11 @@ class UserController extends Controller
             return response('Not Found', 404);
         }
         $userReports = UserReport::where('user_id',$id)->get();
+        $test = Test::lists("test","id");
         return view("user.show")
                 ->with("user",$user)
-                ->with("user_reports", $userReports);
+                ->with("user_reports", $userReports)
+                ->with("test", $test);
     }
 
     /**

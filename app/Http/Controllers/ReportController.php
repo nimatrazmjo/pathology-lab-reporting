@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Test;
 use App\Models\UserReport;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
@@ -16,22 +18,13 @@ class ReportController extends Controller
      */
     public function index($id=0)
     {
-        if($id == 0) {
-            $reports = UserReport::find($id);
-        } else {
-            $reports = UserReport::all();
-        }
-        dd($reports);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $reports = DB::select("select ur.*,GROUP_CONCAT(t.test) as test from user_reports as ur
+                            LEFT JOIN report_test as rt ON rt.`report_id`= ur.`id`
+                            LEFT JOIN test as t on t.id = rt.`test_id`
+                            GROUP by ur.id");
+        return response(view('report.list')
+                ->with('reports', $reports));
     }
 
     /**
@@ -42,51 +35,32 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $input = $request->all();
+        $rules = [
+            'title' => 'required',
+            'test.*' => 'required'
+        ];
+        $this->validate($request, $rules);
+        $report = new UserReport();
+        $report->user_id = $input['user_id'];
+        $report->title = $input['title'];
+        $report->description = $input['description'];
+        $report->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $report->tests()->attach($input['test']);
+        return redirect('/user/'.$input['user_id']);
     }
-
     /**
-     * Show the form for editing the specified resource.
+     * Get test based on report ID
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $report_id
+     * @return mixed
      */
-    public function edit($id)
+    public function getTest($report_id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $reports = UserReport::find($report_id);
+        return view('report.test')
+                ->with('report', $reports)
+                ->with('test', $reports->tests);
     }
 }

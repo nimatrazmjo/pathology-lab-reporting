@@ -11,6 +11,14 @@ class UserReport extends Model
      */
     public function user()
     {
-        $this->belongsTo('App\User');
+        return $this->belongsTo('App\User');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tests()
+    {
+        return $this->belongsToMany('App\Models\Test','report_test','report_id','test_id')->withPivot('result');
     }
 }

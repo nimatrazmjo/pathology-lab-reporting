@@ -6,10 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+    /**
+     * @var string
+     */
     protected $table ="roles";
 
+    /**
+     * User has relation with roles
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function user()
     {
-        $this->belongsToMany('App\users','role_id','user_id');
+       return $this->belongsToMany('App\users','role_id','user_id');
     }
 }

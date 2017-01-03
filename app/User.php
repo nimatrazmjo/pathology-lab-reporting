@@ -29,13 +29,16 @@ class User extends Authenticatable
      */
     public function UserReport()
     {
-        $this->hasMany('App\Models\UserReport');
+       return $this->hasMany('App\Models\UserReport');
     }
 
+    /**
+     * User has role
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function roles()
     {
-        $this->belongsToMany('App\Models\Role','user_role','user_id','role_id');
+       return $this->hasOne('App\Models\Role');
     }
-
-
 }

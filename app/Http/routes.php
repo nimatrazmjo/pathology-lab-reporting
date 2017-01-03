@@ -11,12 +11,35 @@
 |
 */
 
-Route::get('/','UserController@index');
-
 
 Route::group(['middleware'=>['auth']], function(){
-    Route::resource('user','UserController');
-});
-Route::auth();
 
-Route::get('/home', 'HomeController@index');
+    /************* User Routs *****************/
+    Route::group(['prefix' => 'user'],function(){
+
+    });
+    Route::resource('user','UserController');
+
+
+    /************* Report Routes ***************/
+    Route::group(['prefix' => 'report'],function(){
+        Route::get('/{id}/test/','ReportController@getTest');
+    });
+    Route::resource('report','ReportController');
+
+    /************** Test Routes ***************/
+    Route::group(['prefix' => 'test'], function(){
+        Route::get('/{id}/create/','TestController@create');
+        Route::post('/store','TestController@store');
+    });
+
+    /**************** PDF routes **************/
+    Route::get('/pdf/{id}', 'PDFController@index');
+
+    /*************** Mail routes ***************/
+    Route::get('mail/{id}','MailController@send');
+
+    Route::get('/','UserController@index');
+});
+
+Route::auth();
