@@ -1,21 +1,22 @@
-<div class="modal-dialog">
-    <div class="modal-content section-content">
-        {!! Form::open(['route' => 'user.store']) !!}
-        <header class="modal-header title">Test results of selected reports</header>
-        <section class="modal-body">
-            @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+@extends('master')
 
+@section('content')
+    <div class="row">
+        <div class="page-header"> <h4>Add New Patient</h4></div>
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        {!! Form::open(['route' => 'user.store']) !!}
+        <div class="content col-md-4">
             <div class="form-group">
-                <label for="roles" class="control-label">User Type<span class="required-label">*</span></label>
-                {{ Form::select('role',$role,2,["class"=>'form-control','required' => 'required']) }}
+                <label for="role_id" class="control-label">User Type<span class="required-label">*</span></label>
+                {!!  Form::select('role_id',$role,2,["class"=>'form-control','required' => 'required','disabled','id'=>'role_id']) !!}
             </div>
             <div class="form-group">
                 <label for="name" class="control-label">Full Name<span class="required-label">*</span></label>
@@ -35,6 +36,8 @@
                 <input type="password" class="form-control" value="" id="password" name="password" required>
             </div>
 
+        </div>
+        <div class="content col-md-4">
             <div class="form-group">
                 <label for="age" class="control-label">Age <span class="required-label">*</span></label>
                 <input type="text" class="form-control" value="" id="age" name="age" required>
@@ -45,13 +48,14 @@
             </div>
             <div class="form-group">
                 <label for="address" class="control-label">Address <span class="required-label">*</span></label>
-                <textarea name="address" id="address" cols="30" rows="6" class="form-control" required> </textarea>
+                <textarea name="address" id="address" cols="30" rows="8" class="form-control" required> </textarea>
             </div>
-            <footer class="modal-footer">
-                <button type="button" class="btn btn-danget pull-right">Cancel</button>
+            <div class="form-group">
                 <input type="submit" class="pull-right btn btn-success" value="save">
-            </footer>
-        </section>
-        {!! Form::close() !!}
+            </div>
+
+        </div>
+            {!! Form::close() !!}
+
     </div>
-</div>
+@stop

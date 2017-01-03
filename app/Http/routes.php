@@ -37,7 +37,7 @@ Route::group(['middleware'=>['auth']], function(){
     Route::get('/pdf/{id}', 'PDFController@index');
 
     /*************** Mail routes ***************/
-    Route::get('mail/{id}','MailController@send');
+    Route::get('/mail/{id}','MailController@send');
 
     Route::get('/','UserController@index');
 });

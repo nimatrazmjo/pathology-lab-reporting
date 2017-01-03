@@ -20,15 +20,3 @@ $(function () {
     });
 });
 
-
-function ajax_modal(url,method, modalId,divId)
-{
-    $.ajax({
-        url: url,
-        method : method,
-        success: function (response) {
-            $("#"+divId).html('response');
-            $("#"+modalId).modal('show');
-        }
-    });
-}

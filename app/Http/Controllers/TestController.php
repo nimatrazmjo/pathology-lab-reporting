@@ -16,6 +16,11 @@ class TestController extends Controller
      */
     public function create($id)
     {
+        /** Check for authorized user */
+        if(Auth::User()->role_id ==2) {
+            return response(view('errors.401'),401);
+        }
+
         $report = UserReport::find($id);
         $tests = $report->tests;
         return view('test.add')
@@ -31,6 +36,11 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
+        /** Check for authorized user */
+        if(Auth::User()->role_id ==2) {
+            return response(view('errors.401'),401);
+        }
+
         $input = $request->all();
         $roles = [
             'result.*' => 'required'

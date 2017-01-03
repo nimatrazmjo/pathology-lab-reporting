@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\Test;
 use App\Models\Role;
+use App\User;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -12,8 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        if(Test::count() == 0 ) $this->call('TestSeeder');
-        if(Role::count() == 0 ) $this->call('RoleSeeder');
+        if ( Test::count() == 0 ) $this->call('TestSeeder');
+        if ( Role::count() == 0 ) $this->call('RoleSeeder');
+        if ( User::count() == 0 ) $this->call('UserSeeder');
     }
 }
 
@@ -52,6 +54,28 @@ class RoleSeeder extends Seeder
             $roleObject->id = $obj->id;
             $roleObject->role = $obj->role;
             $roleObject->save();
+        }
+    }
+}
+
+/**
+ * Class UserSeeder
+ */
+class UserSeeder extends Seeder
+{
+    public function run()
+    {
+        // TODO: Implement run() method.
+        $json = File::get("database/seeds/data/users.json");
+        $data = json_decode($json);
+        foreach($data as $obj) {
+            $userObject = new User();
+            $userObject->id = $obj->id;
+            $userObject->name = $obj->name;
+            $userObject->email = $obj->email;
+            $userObject->password = bcrypt($obj->password);
+            $userObject->role_id = $obj->role_id;
+            $userObject->save();
         }
     }
 }

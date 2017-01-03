@@ -5,7 +5,13 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading"> <h4 class="text-center">Pathology Reporting System</h4></div>
+                <div class="panel-heading"> <h4 class="text-center">Pathology Reporting System <br/>
+                        @if(\App\User::count() == 0)
+                            <span style="color: red; font-weight: bold;"> Please run seeder file in order to login to system</span>
+                        @endif
+
+                    </h4></div>
+
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
@@ -53,9 +59,11 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-sign-in"></i> Login
                                 </button>
-
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                                <br> <br>
+                                <span><b>Email</b>:operator@gmail.com</span>
+                                <span><b>Password</b>:operator123</span>
                             </div>
+
                         </div>
                     </form>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
@@ -18,6 +19,10 @@ class MailController extends Controller
      */
     public function send($id)
     {
+        /** Check for authorized user */
+        if(Auth::User()->role_id ==2 & $id != Auth::user()->id) {
+            return response(view('errors.401'),401);
+        }
 
         $from ="nimatullah.razmjo@gmail.com";
         $pdf= $this->pdf($id);

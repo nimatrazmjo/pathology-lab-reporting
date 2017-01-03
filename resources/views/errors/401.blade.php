@@ -15,12 +15,8 @@
 @section('content')
 	<div class="container">
 		<div class="content" id="errors">
-			<h1>Sorry, The page you are looking for is not found in the system.</h1>
-			@if(Auth::user()->role_id ==2 ) {
-				<br>{!! link_to(url('/user/'.\Illuminate\Support\Facades\Auth::user()->id), "Back") !!}
-			@else
-				<br>{!! link_to(url('/user'), "Back") !!}
-			@endif
+			<h1>Sorry, You are not authorized to this action.</h1>
+			<br>{!! link_to(url('/user/'.\Illuminate\Support\Facades\Auth::user()->id), "Back") !!}
 		</div>
 	</div>
 @stop

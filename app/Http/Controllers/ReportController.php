@@ -19,6 +19,11 @@ class ReportController extends Controller
     public function index($id=0)
     {
 
+        /** Check for authorized user */
+        if(Auth::User()->role_id ==2) {
+            return response(view('errors.401'),401);
+        }
+
         $reports = DB::select("select ur.*,GROUP_CONCAT(t.test) as test from user_reports as ur
                             LEFT JOIN report_test as rt ON rt.`report_id`= ur.`id`
                             LEFT JOIN test as t on t.id = rt.`test_id`
@@ -35,6 +40,11 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
+        /** Check for authorized user */
+        if(Auth::User()->role_id ==2) {
+            return response(view('errors.401'),401);
+        }
+
         $input = $request->all();
         $rules = [
             'title' => 'required',

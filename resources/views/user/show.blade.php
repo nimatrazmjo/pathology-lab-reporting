@@ -19,8 +19,8 @@
                <tr>
                    <th>Email</th>
                    <td>{{$user->email}}</td>
-                   <th>Pass Code</th>
-                   <td>{{$user->pass_code}}</td>
+                   <th>User Name</th>
+                   <td>{{$user->user_name}}</td>
                </tr>
                <tr>
                    <th>sex</th>
@@ -34,8 +34,11 @@
                 <h4> {{ $user->name  }} Reports</h4>
         </span>
         <span class="pull-right">
-            <a href="#" class="pull-right btn btn-default" data-toggle="modal" data-target="#add-modal"> Add Reports</a>
+            @if(\Illuminate\Support\Facades\Auth::user()->role_id !=2)
+                <a href="#" class="pull-right btn btn-default" data-toggle="modal" data-target="#add-modal"> Add Reports</a>
+            @endif
             <a href="{{url('/pdf/'.$user->id)}}" class="btn btn-default"> Export to PDF</a>
+            <a href="{{url('/mail/'.$user->id)}}" class="btn btn-default"> Send PDF via Email</a>
         </span>
         <table class="table table-responsive table-striped table-bordered">
             <thead>
@@ -57,7 +60,9 @@
                         </td>
                         <td>
                             <a href="#" class="btn viewTest" report_id="{{$report->id}}"> view tests</a>
-                            <a href="#" class="btn addTest" report_id="{{$report->id}}">add test Result</a>
+                            @if(\Illuminate\Support\Facades\Auth::user()->role_id !=2)
+                                <a href="#" class="btn addTest" report_id="{{$report->id}}">add test Result</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -68,7 +73,7 @@
             <div class="modal-dialog">
                 <div class="modal-content section-content">
                     {!! Form::open(['route'=>'report.store','class'=>'form-horizontal']) !!}
-                    <header class="modal-header title"> Add Report to {{ $user->name }}</header>
+                    <header class="modal-header title"> Add Report to {{ $user->name }} <button type="button" class="close has-ripple" data-dismiss="modal">×</button></header>
                     <section class="modal-body">
                         <div class="form-group">
                             <label for="title" class="control-label">Title</label>
@@ -89,32 +94,6 @@
                         <button type="submit" class="btn btn-success pull-right"> Save </button>
                     </footer>
                     {!! Form::close() !!}
-                </div>
-            </div>
-        </div>
-
-        <div id="add-test" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content section-content">
-                    <form action="#" class="form-horizontal">
-                        <header class="modal-header modal-title title">
-                            Add test for selected Report
-                        </header>
-                        <section class="modal-body">
-                            <div class="form-group">
-                                <label for="test_title" class="control-label"> Test Title</label>
-                                <input type="text" id="test_title" name="test_title" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="test_result" class="control-label"> Test Result</label>
-                                <textarea name="test_result" id="test_result" cols="30" rows="5" class="form-control"></textarea>
-                            </div>
-                        </section>
-                        <footer class="modal-footer">
-                            <input type="button" class="pull-right btn btn-default" value="Cancel">
-                            <input type="button" class="pull-right btn btn-success" value="save">
-                        </footer>
-                    </form>
                 </div>
             </div>
         </div>

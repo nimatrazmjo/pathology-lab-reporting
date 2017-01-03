@@ -30,27 +30,29 @@
 
                         <!-- Brand -->
                         <div class="brand-name-wrapper">
-                            <a class="navbar-brand" href="#">
+                            <a class="navbar-brand" href="<?php if(Auth::user()->role ==2){ echo url('/user'); } else { echo url('/user/'.Auth::user()->id);}?>">
                                 Pathology Lab Reporting
                             </a>
                         </div>
 
                         <!-- Search -->
-                        <a data-toggle="collapse" href="#search" class="btn btn-default" id="search-trigger">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </a>
+                        @if(Auth::user()->role_id != 2)
+                            <a data-toggle="collapse" href="#search" class="btn btn-default" id="search-trigger">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </a>
 
-                        <!-- Search body -->
-                        <div id="search" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <form class="navbar-form" role="search">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Search">
-                                    </div>
-                                    <button type="submit" class="btn btn-default "><span class="glyphicon glyphicon-ok"></span></button>
-                                </form>
+                            <!-- Search body -->
+                            <div id="search" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <form class="navbar-form" role="search">
+                                        <div class="form-group">
+                                            <input type="text" name="patient_name" id="patient_name" class="form-control" placeholder="Search Patient Name">
+                                        </div>
+                                        <button type="button" class="btn btn-default search-patient"><span class="glyphicon glyphicon-ok"></span></button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
 
                 </div>
@@ -58,9 +60,10 @@
                 <!-- Main Menu -->
                 <div class="side-menu-container">
                     <ul class="nav navbar-nav">
-
-                        <li><a href="/user"> Patient <span class="glyphicon glyphicon-send pull-right"></span></a></li>
-                        <li class=""><a href="/report   ">Reporting <span class="glyphicon glyphicon-plane pull-right"></span></a></li>
+                        @if(Auth::user()->role_id != 2)
+                            <li><a href="/user"> Patient <span class="glyphicon glyphicon-send pull-right"></span></a></li>
+                            <li class=""><a href="/report   ">Reporting <span class="glyphicon glyphicon-plane pull-right"></span></a></li>
+                        @endif
                         @if(Auth::user())
                         <li class="panel panel-default" id="dropdown">
                             <a data-toggle="collapse" href="#dropdown-lvl1">

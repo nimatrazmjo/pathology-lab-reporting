@@ -1,5 +1,5 @@
 [
-  {"id":1,"role": "receptionest"},
+  {"id":1,"role": "Operator"},
   {"id":2,"role": "patient"},
   {"id":3,"role": "doctore"}
 ]

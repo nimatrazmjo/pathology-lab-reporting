@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class PDFController extends Controller
 {
@@ -19,6 +20,11 @@ class PDFController extends Controller
      */
     public function index($id)
     {
+        /** Check for authorized user */
+        if(Auth::User()->role_id ==2 & $id != Auth::user()->id) {
+            return response(view('errors.401'),401);
+        }
+
         $user = User::find($id);
         $report = $user->UserReport;
         $data= array('user'=>$user,'report'=>$report);

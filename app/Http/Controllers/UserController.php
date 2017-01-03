@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\UserReport;
 use App\Http\Requests;
@@ -20,7 +21,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::all();
+        /** Check for authorized user */
+        if(Auth::User()->role_id ==2) {
+            return response(view('errors.401'),401);
+        }
+
+        $user = User::where('role_id',2)->get();
         return view("user.index")->with('user', $user);
     }
 
@@ -31,6 +37,12 @@ class UserController extends Controller
      */
     public function create()
     {
+
+        /** Check for authorized user */
+        if(Auth::User()->role_id ==2) {
+            return response(view('errors.401'),401);
+        }
+
         $roles = Role::lists('role','id');
         return view("user.add")->with('role',$roles);
     }
@@ -43,9 +55,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
 
+        /** Check for authorized user */
+        if(Auth::User()->role_id ==2) {
+            return response(view('errors.401'),401);
+        }
+
+        $input = Input::all();
         $rules = [
+            'role_id' => 'required',
             'name' => 'required',
             'user_name' => 'required',
             'email'     => 'required|email|unique:users',
@@ -54,9 +72,10 @@ class UserController extends Controller
             'sex'       => 'required',
             'address'   => 'required'
         ];
-
+        dd($input);
         $this->validate($request, $rules);
         $userObject = new User();
+        $userObject->role_id = $input['role_id'];
         $userObject->name = $input['name'];
         $userObject->user_name = $input['user_name'];
         $userObject->email = $input['email'];
@@ -76,10 +95,15 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        /** Check for authorized user */
+        if(Auth::User()->role_id ==2 & $id != Auth::user()->id) {
+            return response(view('errors.401'),401);
+        }
+
         try {
             $user = User::findOrFail($id);
         }catch (ModelNotFoundException $e) {
-            return response('Not Found', 404);
+            return response(view('errors.404'), 404);
         }
         $userReports = UserReport::where('user_id',$id)->get();
         $test = Test::lists("test","id");
@@ -97,6 +121,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        /** Check for authorized user */
+        if(Auth::User()->role_id ==2) {
+            return response(view('errors.401'),401);
+        }
+
         try {
             $user = User::find($id);
         } catch (ModelNotFoundException $e) {
@@ -114,6 +143,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        /** Check for authorized user */
+        if(Auth::User()->role_id ==2) {
+            return response(view('errors.401'),401);
+        }
+
         try {
             $user = User::find($id);
         } catch (ModelNotFoundException $e) {
@@ -139,6 +173,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        /** Check for authorized user */
+        if(Auth::User()->role_id ==2) {
+            return response(view('errors.401'),401);
+        }
+
         try {
             $user = User::find($id);
         } catch (ModelNotFoundException $e) {
