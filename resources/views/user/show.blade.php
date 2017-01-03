@@ -39,27 +39,27 @@
         </span>
         <table class="table table-responsive table-striped table-bordered">
             <thead>
-                <tr>
-                    <th> Title </th>
-                    <th> Details </th>
-                    <th> Action </th>
-                </tr>
+            <tr>
+                <th> Title </th>
+                <th> Details </th>
+                <th> Action </th>
+            </tr>
             </thead>
             <tbody>
             @if($user_reports)
                 @foreach($user_reports as$report)
-                <tr>
-                    <td>
-                        {{$report->title}}
-                    </td>
-                    <td>
-                        {{ $report->description }}
-                    </td>
-                    <td>
-                        <a href="#" class="btn viewTest" report_id="{{$report->id}}"> view tests</a>
-                        <a href="#" class="btn addTest" report_id="{{$report->id}}">add test Result</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            {{$report->title}}
+                        </td>
+                        <td>
+                            {{ $report->description }}
+                        </td>
+                        <td>
+                            <a href="#" class="btn viewTest" report_id="{{$report->id}}"> view tests</a>
+                            <a href="#" class="btn addTest" report_id="{{$report->id}}">add test Result</a>
+                        </td>
+                    </tr>
                 @endforeach
             @endif
             </tbody>
@@ -68,33 +68,31 @@
             <div class="modal-dialog">
                 <div class="modal-content section-content">
                     {!! Form::open(['route'=>'report.store','class'=>'form-horizontal']) !!}
-                        <header class="modal-header title"> Add Report to {{ $user->name }}</header>
-                        <section class="modal-body">
-                            <div class="form-group">
-                                <label for="title" class="control-label">Title</label>
-                                <input type="text" class="form-control" name="title" id="title" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="test" class="control-label">Test</label>
-                                {!! Form::select("test[]",$test,null,['class' => 'form-control multi_select','multiple' => 'multiple','required']) !!}
-                            </div>
+                    <header class="modal-header title"> Add Report to {{ $user->name }}</header>
+                    <section class="modal-body">
+                        <div class="form-group">
+                            <label for="title" class="control-label">Title</label>
+                            <input type="text" class="form-control" name="title" id="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="test" class="control-label">Test</label>
+                            {!! Form::select("test[]",$test,null,['class' => 'form-control multi_select','multiple' => 'multiple','required']) !!}
+                        </div>
 
-                            <div class="form-group">
-                                <label for="description" class="control-label">Description</label>
-                                <textarea name="description" id="description" cols="30" rows="4" class="form-control"></textarea>
-                            </div>
-                        </section>
-                        <footer class="modal-footer">
-                            <input type="hidden" value="{{$user->id}}" name="user_id" id="user_id">
-                            <button type="submit" class="btn btn-success pull-right"> Save </button>
-                        </footer>
+                        <div class="form-group">
+                            <label for="description" class="control-label">Description</label>
+                            <textarea name="description" id="description" cols="30" rows="4" class="form-control"></textarea>
+                        </div>
+                    </section>
+                    <footer class="modal-footer">
+                        <input type="hidden" value="{{$user->id}}" name="user_id" id="user_id">
+                        <button type="submit" class="btn btn-success pull-right"> Save </button>
+                    </footer>
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
-        <div id="view-tests" class="modal fade" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 
-        </div>
         <div id="add-test" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content section-content">
@@ -134,8 +132,8 @@
                 url: '{{url('report')}}/'+reportid+'/test',
                 type: 'get',
                 success: function (response) {
-                    $("#view-tests").html(response);
-                    $('#view-tests').modal('show');
+                    $("#general-modal").html(response);
+                    $('#general-modal').modal('show');
                 }
             });
         });
@@ -145,8 +143,8 @@
                 url: '{{url('test')}}/'+reportid+'/create',
                 type: 'get',
                 success: function (response) {
-                    $("#view-tests").html(response);
-                    $('#view-tests').modal('show');
+                    $("#general-modal").html(response);
+                    $('#general-modal').modal('show');
                 }
             });
         });

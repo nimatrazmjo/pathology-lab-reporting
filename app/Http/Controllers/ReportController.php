@@ -24,7 +24,7 @@ class ReportController extends Controller
                             LEFT JOIN test as t on t.id = rt.`test_id`
                             GROUP by ur.id");
         return response(view('report.list')
-                ->with('reports', $reports));
+            ->with('reports', $reports));
     }
 
     /**
@@ -60,7 +60,7 @@ class ReportController extends Controller
     {
         $reports = UserReport::find($report_id);
         return view('report.test')
-                ->with('report', $reports)
-                ->with('test', $reports->tests);
+            ->with('report', $reports)
+            ->with('test', $reports->tests);
     }
 }

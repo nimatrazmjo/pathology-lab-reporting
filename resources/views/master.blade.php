@@ -83,17 +83,25 @@
 
         </div>
 
-        <!-- Main Content -->
+        <!-----------------  Main Content -------------->
         <div class="container-fluid">
             <div class="side-body">
                 @yield('content')
             </div>
         </div>
+        <!-----------------  end Main Content -------------->
     </div>
 
-        <script src="{{asset('jquery/dist/jquery.min.js')}}"></script>
-        <script src="{{asset('bootstrap/dist/js/bootstrap.min.js')}}"></script>
-        <script src="{{asset('javascript/scripts.js')}}" type="text/javascript"></script>
-        @yield('custom_script')
+    <!----------------- Start Bootstrap Modal -------------->
+    <div id="general-modal" class="modal fade" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    </div>
+    <!----------------- End Bootstrap Modal -------------->
+
+    <!----------------- Start Javascript -------------->
+    <script src="{{asset('jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('javascript/scripts.js')}}" type="text/javascript"></script>
+    @yield('custom_script')
+    <!------------------ End Javascript ---------------->
     </body>
 </html>

@@ -22,7 +22,7 @@
                             <td colspan="2">{{$test->pivot->result}}</td>
                         </tr>
                     @endforeach
-               @endif
+                @endif
                 </tbody>
             </table>
         </section>

@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
     }
 }
 
-
+/**
+ * Class TestSeeder
+ */
 class TestSeeder extends Seeder
 {
     public function run()
@@ -34,6 +36,10 @@ class TestSeeder extends Seeder
         }
     }
 }
+
+/**
+ * Class RoleSeeder
+ */
 class RoleSeeder extends Seeder
 {
     public function run()

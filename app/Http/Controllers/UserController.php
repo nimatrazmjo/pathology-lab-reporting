@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
-use App\Models\Test;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Models\UserReport;
 use App\Http\Requests;
+use App\Models\Role;
+use App\Models\Test;
 use App\User;
 
 class UserController extends Controller
@@ -32,7 +32,6 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::lists('role','id');
-
         return view("user.add")->with('role',$roles);
     }
 
@@ -77,7 +76,6 @@ class UserController extends Controller
      */
     public function show($id)
     {
-
         try {
             $user = User::findOrFail($id);
         }catch (ModelNotFoundException $e) {
@@ -86,9 +84,9 @@ class UserController extends Controller
         $userReports = UserReport::where('user_id',$id)->get();
         $test = Test::lists("test","id");
         return view("user.show")
-                ->with("user",$user)
-                ->with("user_reports", $userReports)
-                ->with("test", $test);
+            ->with("user",$user)
+            ->with("user_reports", $userReports)
+            ->with("test", $test);
     }
 
     /**
