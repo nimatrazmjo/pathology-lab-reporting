@@ -1,27 +1,42 @@
-# Laravel PHP Framework
+Pathology Reporting System
+===================
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+Pathology lab reporting system, which can be used to publish medical test reports to patients.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+functional specification
+-------------
 
-## Official Documentation
+> - Operator users should be able to log in to the system to perform following privileged tasks. Patients cannot access these pages.
+> Reports CRUD (Multiple tests and results in each report)
+> Patients CRUD (including pass code) 
+> - Lab sends a text message to the patient with a pass code to log in (out of scope).
+> - Patient user could log in using his name (auto complete field) and pass code sent to him. And then can do the following:
+> Display list of his reports.
+> Display a report details as a page.
+> Export a report as PDF.
+> Mail a report as PDF
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+Prerequisites
+-------------
+>- Laravel 5
+>- MySQL
+>- NPM
+>- Bower
 
-## Contributing
+Prerequisites
+-------------
+Please run following comment before running application on browser.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+Make sure you have configured your database
 
-## Security Vulnerabilities
+>- create tables
+> **php artisan migrate **
+> - run seeders
+> **php artisan db:seed**
+>- **composer update**
+>- **npm install**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Operator user name and password is :
+> - **Email**: operator@gmail.com 
+> - **Password**: operator123

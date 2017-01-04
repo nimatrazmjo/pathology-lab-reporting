@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Monolog\Handler\PushoverHandlerTest;
 
 class User extends Authenticatable
 {
@@ -23,7 +24,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
     /**
      * Has relationship with user_reports table
      */

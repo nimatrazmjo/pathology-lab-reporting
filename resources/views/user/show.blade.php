@@ -8,7 +8,16 @@
         <div class="page-header">
             <h4>{{$user->name}} Details</h4></span>
         </div>
+        <div class="flash-message">
+            @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                @if(Session::has('alert-' . $msg))
+
+                    <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                @endif
+            @endforeach
+        </div>
         <pre>
+
            <table class="table table-striped table-responsive">
                <tr>
                    <th >Full Name</th>
@@ -40,6 +49,7 @@
             <a href="{{url('/pdf/'.$user->id)}}" class="btn btn-default"> Export to PDF</a>
             <a href="{{url('/mail/'.$user->id)}}" class="btn btn-default"> Send PDF via Email</a>
         </span>
+
         <table class="table table-responsive table-striped table-bordered">
             <thead>
             <tr>
@@ -59,9 +69,9 @@
                             {{ $report->description }}
                         </td>
                         <td>
-                            <a href="#" class="btn viewTest" report_id="{{$report->id}}"> view tests</a>
+                            <a href="#" class="btn viewTest btn-default" report_id="{{$report->id}}"> view tests</a>
                             @if(\Illuminate\Support\Facades\Auth::user()->role_id !=2)
-                                <a href="#" class="btn addTest" report_id="{{$report->id}}">add test Result</a>
+                                <a href="#" class="btn addTest btn-default" report_id="{{$report->id}}">add test Result</a>
                             @endif
                         </td>
                     </tr>

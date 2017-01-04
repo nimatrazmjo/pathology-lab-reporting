@@ -14,10 +14,10 @@
         @endif
         {!! Form::open(['route' => 'user.store']) !!}
         <div class="content col-md-4">
-            <div class="form-group">
-                <label for="role_id" class="control-label">User Type<span class="required-label">*</span></label>
-                {!!  Form::select('role_id',$role,2,["class"=>'form-control','required' => 'required','disabled','id'=>'role_id']) !!}
-            </div>
+            {{--<div class="form-group">--}}
+                {{--<label for="role_id" class="control-label">User Type<span class="required-label">*</span></label>--}}
+                {{--{!!  Form::select('role_id',$role,2,["class"=>'form-control','required' => 'required','disabled','id'=>'role_id']) !!}--}}
+            {{--</div>--}}
             <div class="form-group">
                 <label for="name" class="control-label">Full Name<span class="required-label">*</span></label>
                 <input type="text" class="form-control" value="" id="name" name="name" required>
@@ -48,9 +48,10 @@
             </div>
             <div class="form-group">
                 <label for="address" class="control-label">Address <span class="required-label">*</span></label>
-                <textarea name="address" id="address" cols="30" rows="8" class="form-control" required> </textarea>
+                <textarea name="address" id="address" cols="30" rows="5" class="form-control" required> </textarea>
             </div>
             <div class="form-group">
+                <input type="hidden" id="role_id" name="role_id" value="2">
                 <input type="submit" class="pull-right btn btn-success" value="save">
             </div>
 

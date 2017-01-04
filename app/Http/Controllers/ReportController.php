@@ -7,6 +7,7 @@ use App\Models\UserReport;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
@@ -41,6 +42,7 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         /** Check for authorized user */
+
         if(Auth::User()->role_id ==2) {
             return response(view('errors.401'),401);
         }
@@ -58,6 +60,7 @@ class ReportController extends Controller
         $report->save();
 
         $report->tests()->attach($input['test']);
+        $request->session()->flash('alert-success', 'User report successfully added!');
         return redirect('/user/'.$input['user_id']);
     }
     /**

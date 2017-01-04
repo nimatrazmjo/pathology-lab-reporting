@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Models\UserReport;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class TestController extends Controller
 {
@@ -20,7 +21,6 @@ class TestController extends Controller
         if(Auth::User()->role_id ==2) {
             return response(view('errors.401'),401);
         }
-
         $report = UserReport::find($id);
         $tests = $report->tests;
         return view('test.add')

@@ -72,7 +72,6 @@ class UserController extends Controller
             'sex'       => 'required',
             'address'   => 'required'
         ];
-        dd($input);
         $this->validate($request, $rules);
         $userObject = new User();
         $userObject->role_id = $input['role_id'];
@@ -84,6 +83,7 @@ class UserController extends Controller
         $userObject->status = $input['sex'];
         $userObject->address = $input['address'];
         $userObject->save();
+        $request->session()->flash('alert-success', 'User successfully added!');
         return redirect('/user');
     }
 

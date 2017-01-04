@@ -6,6 +6,14 @@
             <div class="panel panel-body">
                 <div class="page-header"> <h4>Patients List</h4></div>
                 <a href="{{url('user/create')}}" class="btn btn-default add-user"> Add New User</a>
+                <div class="flash-message">
+                    @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                        @if(Session::has('alert-' . $msg))
+
+                            <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                        @endif
+                    @endforeach
+                </div>
                 <table class="table table-responsive table-striped">
                     <thead>
                         <tr>
@@ -26,7 +34,6 @@
                                 <td>{{$user->email}}</td>
                                 <td>
                                     <a href="{{url('user/'.$user->id)}}" class="btn">View</a>
-                                    <a href="#" class="btn">Edit</a>
                                 </td>
                             </tr>
                             @endforeach

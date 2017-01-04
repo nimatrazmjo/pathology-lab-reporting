@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Laravel</title>
+    <title>Pathology Lab Reporting System</title>
 
     {{--<link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">--}}
     <link rel="stylesheet" href="{{asset('./bootstrap/dist/css/bootstrap.min.css')}}">
