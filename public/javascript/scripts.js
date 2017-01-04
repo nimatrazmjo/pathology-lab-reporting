@@ -20,3 +20,14 @@ $(function () {
     });
 });
 
+/** Search Patient Name **/
+$(".search-patient").on('click', function(){
+    $.ajax({
+        url:'/search',
+        type:'post',
+        data: $("#search-form").serialize(),
+        success: function(response) {
+            $(".side-body").html(response);
+        }
+    })
+});

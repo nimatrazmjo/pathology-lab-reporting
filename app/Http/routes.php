@@ -15,9 +15,6 @@
 Route::group(['middleware'=>['auth']], function(){
 
     /************* User Routs *****************/
-    Route::group(['prefix' => 'user'],function(){
-
-    });
     Route::resource('user','UserController');
 
 
@@ -38,6 +35,10 @@ Route::group(['middleware'=>['auth']], function(){
 
     /*************** Mail routes ***************/
     Route::get('/mail/{id}','MailController@send');
+
+
+    /*************** Search Routes *************/
+    Route::post('/search', 'SearchController@search');
 
     Route::get('/','UserController@index');
 });
